@@ -32,7 +32,7 @@ public class HomeWork {
     	  Random r = new Random();
     	  int com = r.nextInt(3);
     	  String input = s.nextLine();
-//2-1. 0,1,2로 눌렀는가?  -----y:게임실행 n: 출력 안함
+//2-1. 0,1,2로 눌렀는가?  -----y:게임실행
     	  
       if (input.equals("0") || input.equals("1") || input.equals("2")) {
          System.out.println("");
