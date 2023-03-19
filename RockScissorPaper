@@ -73,6 +73,7 @@ public class HomeWork {
     	  System.out.println("전적 : "+" 총 게임횟수["+ (winCount + loseCount + drawCount) + "] 승[" + winCount + "]패[" + loseCount + "]무[" + drawCount + "]");
      }else if (input.equals("e")) {
     	  System.out.println("게임을 종료합니다.");
+    	  break;
      }else {
     	  System.out.println("잘못 입력하셨습니다.");
      }
