@@ -1,0 +1,115 @@
+import java.util.Scanner;
+import java.util.Arrays;
+public class Pig {
+ public static void main(String[] args) {
+// 1. [q]:종료 
+// 2. [m]:저금통 생성 
+// 2-1.배열 선택하기
+// 2-2이름 입력하기
+// 3. [s]:저금통 조회 
+// 3-1.목록에 있는 저금통 선택 
+// 3-2.입금/출금선택 
+// 객체생성 --메소드 사용하기 위해 호출
+ Pig pig = new Pig();
+ // 배열생성 
+Pig[] pigBox = new Pig[5];
+ Scanner scanner = new Scanner(System.in);
+ // 배열 초기화(안해주면 NullPointerException 발생)
+ for (int i = 0; i < 5; i++) {
+ pigBox[i] = new Pig();
+ }
+ for (int i = 0; i < 9999999; i++) {
+ System.out.println("----------메뉴를 선택하세요-----------");
+ System.out.println("[a]:저금통 생성 [s]:저금통 조회 [q]:종료");
+ String inputBtn = scanner.nextLine();
+// 0. 예외처리
+ if (inputBtn.equals("a") || inputBtn.equals("s") || inputBtn.equals("q")) {
+// 1. [m]:저금통 생성 ---1-1.배열 선택하기,1-2.이름 입력하기 
+if (inputBtn.equals("a")) {
+ System.out.println("생성할 저금통의 위치를 입력해주세요");
+ int index = scanner.nextInt();
+ // 한 공간에 중복되는 저금통 안생기게 하기
+ if (pigBox[index].name == null) {
+ pigBox[index].makeBox();
+ System.out.println(index + "번을 선택하셨습니다.");
+ System.out.println("저금통의 이름을 입력하세요.");
+ Scanner scanner1 = new Scanner(System.in);
+ String name = scanner1.nextLine();
+ pigBox[index].makeName(name);
+ } else {
+ System.out.println("이미 존재하는 저금통입니다.");
+ }
+// 2. [s]:저금통 조회 ---2-1.목록에 있는 저금통 선택 2-2.입금/출금선택
+ } else if (inputBtn.equals("s")) {
+ System.out.println("조회할 저금통을 입력하세요.");
+ int index = scanner.nextInt();
+ if (pigBox[index].name == null) {
+ System.out.println("저금통이 존재하지 않습니다.");
+ } else {
+ pigBox[index].inquire();
+ System.out.println("--------입금/출금을 선택하세요--------");
+ System.out.println("[d]: 입금 [w]: 출금");
+ Scanner scanner1 = new Scanner(System.in);
+ String inOut = scanner1.nextLine();
+ if (inOut.equals("d")) {
+ pigBox[index].deposit();
+ } else if (inOut.equals("w")) {
+ pigBox[index].withdraw();
+ }
+ }
+// 3. [q]:종료
+ } else if (inputBtn.equals("q")) {
+ System.out.println("----------프로그램을 종료합니다----------");
+ break;
+ }
+ } else {
+ System.out.println("다시 입력하세요.");
+ }
+ }
+ }
+ int coin = 0;
+ int incoin = 0;
+ int outCoin = 0;
+ String name;
+ public void makeBox() {
+ System.out.println("저금통을 생성합니다.");
+ }
+ public void makeName(String inputName) {
+ this.name = inputName;
+ System.out.println("생성된 저금통의 이름은 " + this.name + " 입니다.");
+ }
+ public void inquire() {
+ System.out.println("--------해당 저금통을 조회합니다-------");
+ System.out.println("현재 보유 저금통: " + this.name);
+ System.out.println("현재 보유 저금통 총액: " + this.coin);
+ System.out.println();
+ }
+ public void deposit() {
+ try {
+ Scanner scanner = new Scanner(System.in);
+ System.out.println(this.name + "에 입금할 금액을 입력하세요");
+ String inNumber = scanner.nextLine();
+ int inCoin = Integer.parseInt(inNumber);
+ this.coin = this.coin + inCoin;
+ 
+System.out.println("현재 입금금액: " + inCoin);
+ System.out.println("총 잔액: " + this.coin); 
+}catch (NumberFormatException ex) {
+ System.out.println("올바른 숫자를 입력하세요.");
+ 
+}
+ }
+ public void withdraw() {
+ try {
+ Scanner scanner = new Scanner(System.in);
+ System.out.println(this.name + "에 출금할 금액을 입력하세요");
+ String inNumber = scanner.nextLine();
+ int outCoin = Integer.parseInt(inNumber);
+ this.coin = this.coin - outCoin;
+ System.out.println("현재 출금금액: " + outCoin);
+ System.out.println("총 잔액: " + this.coin);
+ } catch (NumberFormatException ex) {
+ System.out.println("올바른 숫자를 입력하세요.");
+ }
+ }
+}
